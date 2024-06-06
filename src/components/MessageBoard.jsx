@@ -8,10 +8,19 @@ const handleInput = (event)=>{
   setMessageInput(event.target.value)
 }
 
-const addMessage = ()=>{
+const addMessage = (event)=>{
+  event.preventDefault()
   const newMessage = [...messageShow];
   newMessage.push(messageInput);
   setMessageShow(newMessage);
+
+  setMessageInput("")
+}
+
+const deleteMessage =(index)=>{
+  const newMessageDelete = [...messageShow];
+  newMessageDelete.splice(index,1)
+  setMessageShow(newMessageDelete)
 }
 
   return (
@@ -35,7 +44,9 @@ const addMessage = ()=>{
             return (
             <div className="message" key={index}>
             <h1>{item}</h1>
-            <button className="delete-button">x</button>
+            <button className="delete-button" onClick={()=>{
+              deleteMessage(index)
+            }}>x</button>
             </div>
          )
           })}
